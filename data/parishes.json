@@ -1,0 +1,26 @@
+[
+  {
+    "id": 0,
+    "name": "St. Ignatius",
+    "imgUrl": "/../public/static/koujimachi2s.jpg",
+    "websiteUrl": "https://www.strangelovecoffee.ca/",
+    "address": "983 Queen St E, Toronto, ON M4M 1K2",
+    "neighbourhood": "at King and Spadina"
+  },
+  {
+    "id": 1,
+    "name": "St. Peter",
+    "imgUrl": "/../public/static/koujimachi2s.jpg",
+    "websiteUrl": "https://www.darkhorseespresso.com/",
+    "address": "401 Richmond St W",
+    "neighbourhood": "Richmond and Spadina"
+  },
+  {
+    "id": 300,
+    "name": "Immaculate Conception",
+    "imgUrl": "/../public/static/koujimachi2s.jpg",
+    "websiteUrl": "https://www.darkhorseespresso.com/",
+    "address": "401 Richmond St W",
+    "neighbourhood": "Route 300 Neighbourhood"
+  }
+]

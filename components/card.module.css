@@ -1,0 +1,12 @@
+.cardLink {
+  display: grid;
+  justify-content: center;
+  margin: 2rem 0 0 0;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0 1rem 0;
+}
