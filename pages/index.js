@@ -1,22 +1,21 @@
 import Head from "next/head";
-import { Router } from "next/router";
 import Banner from "../components/banner";
 import Card from "../components/card";
-import { fetchParishes } from "../lib/parishes";
-// import Image from 'next/image'
-
-// import parishesData from "../data/parishes.json";
-
 import styles from "../styles/Home.module.css";
+import { fetchParishes } from "../lib/parishes";
 
-// export async function getStaticProps(context) {
-//   return {
-//     props: { parishes },
-//   };
-// }
+export async function getStaticProps(context) {
+  console.log("getStaticProps");
+
+  const parishes = await fetchParishes();
+
+  return {
+    props: { parishes },
+  };
+}
 
 export default function Home(props) {
-  console.log(fetchParishes);
+  console.log("props", props);
 
   const handleOnBannerBtnClick = () => {
     console.log("clicked");
@@ -37,8 +36,7 @@ export default function Home(props) {
           handleOnClick={handleOnBannerBtnClick}
           buttonText="View parishes nearby"
         />
-        {/* TODO: props.parishes.length from {fetchParishes}*/}
-        {props.length > 0 && (
+        {props.parishes.length > 0 && (
           <>
             <h2 className={styles.heading2}>Tokyo Parishes</h2>
             <div className={styles.cardLayout}>
