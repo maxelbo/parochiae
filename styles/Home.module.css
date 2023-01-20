@@ -24,10 +24,8 @@
 
 .footer {
   padding: 2rem 0;
-  position: fixed;
-  bottom: 0;
-  right: 50%;
-  transform: translate(50%, 0);
+  display: flex;
+  justify-content: center;
 }
 
 .footer a {
@@ -113,18 +111,5 @@
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1.5rem;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .card,
-  .footer {
-    border-color: #222;
-  }
-  .code {
-    background: #111;
-  }
-  .logo img {
-    filter: invert(1);
   }
 }

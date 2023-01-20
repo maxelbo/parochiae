@@ -1,0 +1,27 @@
+.backToHomeLink {
+  display: flex;
+  justify-content: center;
+}
+
+.name {
+  margin: 2rem;
+  font-size: 2rem;
+  text-align: center;
+  word-wrap: break-word;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4rem;
+  margin: 4rem 1rem;
+}
+
+.col1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto;
+}
