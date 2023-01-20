@@ -13,7 +13,7 @@ export async function getStaticProps(staticProps) {
   return {
     props: {
       parish: parishes.find((parish) => {
-        return parish.fsq_id.toString() === params.id;
+        return parish.id.toString() === params.id;
       }),
     },
   };
@@ -22,7 +22,7 @@ export async function getStaticProps(staticProps) {
 export async function getStaticPaths() {
   const parishes = await fetchParishes();
   const paths = parishes.map((parish) => ({
-    params: { id: parish.fsq_id.toString() },
+    params: { id: parish.id.toString() },
   }));
 
   return {
@@ -37,7 +37,7 @@ export default function Parish(props) {
     return <div>Loading...</div>;
   }
 
-  const { name, location, imgUrl } = props.parish;
+  const { name, address, distance, imgUrl } = props.parish;
 
   const handleUpvoteButton = () => console.log("upvote");
 
@@ -73,7 +73,7 @@ export default function Parish(props) {
               width={24}
               height={24}
             />
-            <p className={styles.text}>{location.formatted_address}</p>
+            <p className={styles.text}>{address}</p>
           </div>
           <div className="{styles.iconWrapper}">
             <Image
@@ -82,7 +82,7 @@ export default function Parish(props) {
               width={24}
               height={24}
             />
-            <p className={styles.text}>{location.locality} Ward</p>
+            <p className={styles.text}>{distance} mt</p>
           </div>
           <div className="{styles.iconWrapper}">
             <Image
