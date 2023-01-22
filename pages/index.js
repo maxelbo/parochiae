@@ -92,7 +92,7 @@ export default function Home(props) {
             </div>
           </>
         )}
-        {props.parishes.length > 0 ? (
+        {props.parishes.length > 0 && (
           <>
             <h2 className={styles.heading2}>Tokyo Parishes</h2>
             <div className={styles.cardLayout}>
@@ -110,7 +110,7 @@ export default function Home(props) {
               ))}
             </div>
           </>
-        ) : null}
+        )}
 
         <div className={styles.grid}></div>
       </main>
