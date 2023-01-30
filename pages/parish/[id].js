@@ -11,11 +11,12 @@ export async function getStaticProps(staticProps) {
   const params = staticProps.params;
   console.log("params", params);
   const parishes = await fetchParishes();
+  const findParishById = parishes.find((parish) => {
+    return parish.id.toString() === params.id;
+  });
   return {
     props: {
-      parish: parishes.find((parish) => {
-        return parish.id.toString() === params.id;
-      }),
+      parish: findParishById ? findParishById : {},
     },
   };
 }
