@@ -27,7 +27,7 @@ export default function Home(props) {
   } = useTrackLocation();
 
   const [localParishes, setLocalParishes] = useState("");
-  const [localParishesError, setLocalParishesError] = useState("");
+  const [localParishesError, setLocalParishesError] = useState(null);
 
   console.log({ latLong, locationErrorMessage });
 
