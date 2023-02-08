@@ -64,7 +64,7 @@ export default function Home(props) {
           className="styles.buttonWrapper"
           handleOnClick={handleOnBannerBtnClick}
           buttonText={
-            isFindingLocation ? "Locating..." : "View parishes nearby"
+            isFindingLocation ? "Locating..." : "Search parishes nearby"
           }
         />
         {locationErrorMessage && (
@@ -94,7 +94,7 @@ export default function Home(props) {
         )}
         {props.parishes.length > 0 && (
           <>
-            <h2 className={styles.heading2}>Tokyo Parishes</h2>
+            <h2 className={styles.heading2}>Parishes in Tokyo</h2>
             <div className={styles.cardLayout}>
               {props.parishes.map((parish) => (
                 <Card
