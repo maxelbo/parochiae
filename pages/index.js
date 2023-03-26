@@ -4,7 +4,8 @@ import Card from "../components/card";
 import styles from "../styles/Home.module.css";
 import { fetchParishes } from "../lib/parishes";
 import useTrackLocation from "../hooks/use-track-location";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { ACTION_TYPES, parishContext } from "./_app";
 
 export async function getStaticProps(context) {
   console.log("getStaticProps");
@@ -19,16 +20,14 @@ export async function getStaticProps(context) {
 export default function Home(props) {
   console.log("props", props);
 
-  const {
-    handleTrackLocation,
-    latLong,
-    locationErrorMessage,
-    isFindingLocation,
-  } = useTrackLocation();
+  const { handleTrackLocation, locationErrorMessage, isFindingLocation } =
+    useTrackLocation();
 
-  const [localParishes, setLocalParishes] = useState("");
+  // const [localParishes, setLocalParishes] = useState("");
   const [localParishesError, setLocalParishesError] = useState(null);
 
+  const { dispatch, state } = useContext(parishContext);
+  const { localParishes, latLong } = state;
   console.log({ latLong, locationErrorMessage });
 
   useEffect(() => {
@@ -37,7 +36,11 @@ export default function Home(props) {
         try {
           const fetchedParishes = await fetchParishes(latLong, 30);
           console.log({ fetchedParishes });
-          setLocalParishes(fetchedParishes);
+          // setLocalParishes(fetchedParishes);
+          dispatch({
+            type: ACTION_TYPES.SET_PARISHES,
+            payload: { parishes: fetchedParishes },
+          });
         } catch (error) {
           setLocalParishesError(error.message);
           console.log({ error });
@@ -73,7 +76,7 @@ export default function Home(props) {
         {localParishesError && (
           <p>Something went wrong: {localParishesError}</p>
         )}
-        {localParishes.length > 0 && (
+        {localParishes > 0 && (
           <>
             <h2 className={styles.heading2}>Parishes Near Me</h2>
             <div className={styles.cardLayout}>
