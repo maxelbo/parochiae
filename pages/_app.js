@@ -1,7 +1,7 @@
 import { createContext, useReducer } from "react";
 import "../styles/globals.css";
 
-export const parishContext = createContext();
+export const ParishContext = createContext();
 
 export const ACTION_TYPES = {
   SET_LAT_LONG: "SET_LAT_LONG",
@@ -13,7 +13,7 @@ const parishReducer = (state, action) => {
     case ACTION_TYPES.SET_LAT_LONG:
       return { ...state, latLong: action.payload.latLong };
     case ACTION_TYPES.SET_PARISHES:
-      return { ...state, parishes: action.payload.parishes };
+      return { ...state, localParishes: action.payload.localParishes };
     default:
       throw new Error(`Invalid action type: ${action.type}`);
   }
@@ -28,9 +28,9 @@ function ParishProvider({ children }) {
   const [state, dispatch] = useReducer(parishReducer, initialState);
 
   return (
-    <parishContext.Provider value={{ state, dispatch }}>
+    <ParishContext.Provider value={{ state, dispatch }}>
       {children}
-    </parishContext.Provider>
+    </ParishContext.Provider>
   );
 }
 

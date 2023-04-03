@@ -5,10 +5,10 @@ import styles from "../styles/Home.module.css";
 import { fetchParishes } from "../lib/parishes";
 import useTrackLocation from "../hooks/use-track-location";
 import { useEffect, useState, useContext } from "react";
-import { ACTION_TYPES, parishContext } from "./_app";
+import { ACTION_TYPES, ParishContext } from "./_app";
 
-export async function getStaticProps(context) {
-  console.log("getStaticProps");
+export async function getStaticProps() {
+  // console.log("getStaticProps");
 
   const parishes = await fetchParishes();
 
@@ -18,17 +18,19 @@ export async function getStaticProps(context) {
 }
 
 export default function Home(props) {
-  console.log("props", props);
+  // console.log("props", props);
 
   const { handleTrackLocation, locationErrorMessage, isFindingLocation } =
     useTrackLocation();
 
-  // const [localParishes, setLocalParishes] = useState("");
+  // const [localParishes, setLocalParishes] = useState(""); Replaced with context
   const [localParishesError, setLocalParishesError] = useState(null);
 
-  const { dispatch, state } = useContext(parishContext);
+  const { dispatch, state } = useContext(ParishContext);
+
   const { localParishes, latLong } = state;
-  console.log({ latLong, locationErrorMessage });
+
+  // console.log({ latLong, locationErrorMessage });
 
   useEffect(() => {
     (async () => {
@@ -39,7 +41,7 @@ export default function Home(props) {
           // setLocalParishes(fetchedParishes);
           dispatch({
             type: ACTION_TYPES.SET_PARISHES,
-            payload: { parishes: fetchedParishes },
+            payload: { localParishes: fetchedParishes },
           });
         } catch (error) {
           setLocalParishesError(error.message);
@@ -76,7 +78,7 @@ export default function Home(props) {
         {localParishesError && (
           <p>Something went wrong: {localParishesError}</p>
         )}
-        {localParishes > 0 && (
+        {localParishes && (
           <>
             <h2 className={styles.heading2}>Parishes Near Me</h2>
             <div className={styles.cardLayout}>

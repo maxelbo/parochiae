@@ -1,12 +1,12 @@
 import { useState, useContext } from "react";
-import { ACTION_TYPES, parishContext } from "../pages/_app";
+import { ACTION_TYPES, ParishContext } from "../pages/_app";
 
 export default function useTrackLocation() {
   const [locationErrorMessage, setLocationErrorMessage] = useState("");
   // const [latLong, setLatLong] = useState("");
   const [isFindingLocation, setIsFindingLocation] = useState(false);
 
-  const { dispatch } = useContext(parishContext);
+  const { dispatch } = useContext(ParishContext);
 
   const success = (position) => {
     const latitude = position.coords.latitude;

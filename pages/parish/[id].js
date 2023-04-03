@@ -1,15 +1,15 @@
-import { useRouter } from "next/router";
-import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
+import { Head, Image, Link, useRouter } from "next";
+import { useEffect, useState, useContext } from "react";
 import { fetchParishes } from "../../lib/parishes";
 import styles from "../../styles/parish.module.css";
 import cls from "classnames";
 import { MapIcon, MapPinIcon, StarIcon } from "@heroicons/react/24/outline";
+import { ParishContext } from "../_app";
+import { isEmpty } from "../../utils";
 
 export async function getStaticProps(staticProps) {
   const params = staticProps.params;
-  console.log("params", params);
+  // console.log("params", params);
   const parishes = await fetchParishes();
   const findParishById = parishes.find((parish) => {
     return parish.id.toString() === params.id;
@@ -33,13 +33,32 @@ export async function getStaticPaths() {
   };
 }
 
-export default function Parish(props) {
+export default function Parish(initialProps) {
   const router = useRouter();
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
 
-  const { name, address, distance, imgUrl } = props.parish;
+  const id = router.query.id;
+
+  const [parish, setParish] = useState(initialProps.parish);
+
+  const {
+    state: { parishes },
+  } = useContext(ParishContext);
+
+  useEffect(() => {
+    if (isEmpty(initialProps.parish)) {
+      if (parishes.length > 0) {
+        const findParishById = parishes.find((parish) => {
+          return parish.id.toString() === params.id;
+        });
+        setParish(findParishById);
+      }
+    }
+  }, [id]);
+
+  const { name, address, distance, imgUrl } = parish;
 
   const handleUpvoteButton = () => console.log("upvote");
 
