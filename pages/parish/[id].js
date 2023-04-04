@@ -1,4 +1,5 @@
-import { Head, Image, Link, useRouter } from "next";
+import { useRouter } from "next/router";
+import { Head, Image, Link } from "next";
 import { useEffect, useState, useContext } from "react";
 import { fetchParishes } from "../../lib/parishes";
 import styles from "../../styles/parish.module.css";
@@ -35,11 +36,9 @@ export async function getStaticPaths() {
 
 export default function Parish(initialProps) {
   const router = useRouter();
-  if (router.isFallback) {
-    return <div>Loading...</div>;
-  }
 
   const id = router.query.id;
+  console.log("id", id, "initialProps", initialProps);
 
   const [parish, setParish] = useState(initialProps.parish);
 
@@ -51,7 +50,7 @@ export default function Parish(initialProps) {
     if (isEmpty(initialProps.parish)) {
       if (parishes.length > 0) {
         const findParishById = parishes.find((parish) => {
-          return parish.id.toString() === params.id;
+          return parish.id.toString() === id;
         });
         setParish(findParishById);
       }
@@ -59,6 +58,10 @@ export default function Parish(initialProps) {
   }, [id]);
 
   const { name, address, distance, imgUrl } = parish;
+
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
 
   const handleUpvoteButton = () => console.log("upvote");
 
