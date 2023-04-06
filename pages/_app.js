@@ -1,4 +1,5 @@
 import { createContext, useReducer } from "react";
+import Footer from "../components/Footer";
 import "../styles/globals.css";
 
 export const ParishContext = createContext();
@@ -36,14 +37,10 @@ function ParishProvider({ children }) {
 
 function MyApp({ Component, pageProps }) {
   return (
-    <>
-      <ParishProvider>
-        <Component {...pageProps} />
-      </ParishProvider>
-      <footer>
-        <p>{new Date().getFullYear()} A.D.</p>
-      </footer>
-    </>
+    <ParishProvider>
+      <Component {...pageProps} />
+      <Footer />
+    </ParishProvider>
   );
 }
 
