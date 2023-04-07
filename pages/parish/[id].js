@@ -1,5 +1,7 @@
 import { useRouter } from "next/router";
-import { Head, Image, Link } from "next";
+import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState, useContext } from "react";
 import { fetchParishes } from "../../lib/parishes";
 import styles from "../../styles/parish.module.css";
