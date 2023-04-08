@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { ACTION_TYPES, ParishContext } from "../pages/_app";
+import { ACTION_TYPES, ParishContext } from "../context/parish-provider";
 
 export default function useTrackLocation() {
   const [locationErrorMessage, setLocationErrorMessage] = useState("");

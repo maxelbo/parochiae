@@ -5,7 +5,7 @@ import styles from "../styles/Home.module.css";
 import { fetchParishes } from "../lib/parishes";
 import useTrackLocation from "../hooks/use-track-location";
 import { useEffect, useState, useContext } from "react";
-import { ACTION_TYPES, ParishContext } from "./_app";
+import { ACTION_TYPES, ParishContext } from "../context/parish-provider";
 
 export async function getStaticProps() {
   // console.log("getStaticProps");

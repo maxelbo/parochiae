@@ -7,7 +7,7 @@ import { fetchParishes } from "../../lib/parishes";
 import styles from "../../styles/parish.module.css";
 import cls from "classnames";
 import { MapIcon, MapPinIcon, StarIcon } from "@heroicons/react/24/outline";
-import { ParishContext } from "../_app";
+import { ParishContext } from "../../context/parish-provider";
 import { isEmpty } from "../../utils";
 
 export async function getStaticProps(staticProps) {
