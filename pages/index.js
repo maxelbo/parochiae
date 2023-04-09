@@ -8,41 +8,35 @@ import { useEffect, useState, useContext } from "react";
 import { ACTION_TYPES, ParishContext } from "../context/parish-provider";
 
 export async function getStaticProps() {
-  // console.log("getStaticProps");
-
   const parishes = await fetchParishes();
-
   return {
     props: { parishes },
   };
 }
 
 export default function Home(props) {
-  // console.log("props", props);
-
   const { handleTrackLocation, locationErrorMessage, isFindingLocation } =
     useTrackLocation();
 
   // const [localParishes, setLocalParishes] = useState(""); Replaced with context
   const [localParishesError, setLocalParishesError] = useState(null);
-
   const { dispatch, state } = useContext(ParishContext);
-
   const { localParishes, latLong } = state;
-
-  // console.log({ latLong, locationErrorMessage });
 
   useEffect(() => {
     (async () => {
       if (latLong) {
         try {
           const fetchedParishes = await fetchParishes(latLong, 30);
-          console.log({ fetchedParishes });
-          // setLocalParishes(fetchedParishes);
+          // const fetchedParishes = await fetch(
+          //   `/api/getCoffeeStoresByLocation?latLong=${latLong}&limit=30`
+          // );
+          // const localParishes = await fetchedParishes.json();
           dispatch({
             type: ACTION_TYPES.SET_PARISHES,
             payload: { localParishes: fetchedParishes },
           });
+          setLocalParishesError("");
         } catch (error) {
           setLocalParishesError(error.message);
           console.log({ error });

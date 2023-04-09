@@ -20,7 +20,7 @@ const parishReducer = (state, action) => {
 
 export default function ParishProvider({ children }) {
   const initialState = {
-    parishes: [],
+    localParishes: [],
     latLong: "",
   };
 
