@@ -27,11 +27,12 @@ export default function Home(props) {
     (async () => {
       if (latLong) {
         try {
-          const fetchedParishes = await fetchParishes(latLong, 30);
-          // const fetchedParishes = await fetch(
-          //   `/api/getCoffeeStoresByLocation?latLong=${latLong}&limit=30`
-          // );
-          // const localParishes = await fetchedParishes.json();
+          // const fetchedParishes = await fetchParishes(latLong, 30);
+          // From serverless function
+          const res = await fetch(
+            `/api/getParishesByLocation?latLong=${latLong}&limit=30`
+          );
+          const fetchedParishes = await res.json();
           dispatch({
             type: ACTION_TYPES.SET_PARISHES,
             payload: { localParishes: fetchedParishes },
@@ -72,7 +73,7 @@ export default function Home(props) {
         {localParishesError && (
           <p>Something went wrong: {localParishesError}</p>
         )}
-        {localParishes && (
+        {localParishes.length > 0 && (
           <>
             <h2 className={styles.heading2}>Parishes Near Me</h2>
             <div className={styles.cardLayout}>
