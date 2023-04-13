@@ -47,13 +47,41 @@ export default function Parish(initialProps) {
     state: { parishes },
   } = useContext(ParishContext);
 
+  const handleCreateParish = async (parish) => {
+    try {
+      const { id, name, address, ward, distance, imgUrl, votes } = parish;
+      const res = await fetch(`/api/createParish`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id,
+          name,
+          address: address || "",
+          ward: ward || "",
+          distance: distance || "",
+          imgUrl,
+          votes: votes || 0,
+        }),
+      });
+      const dbParish = await res.json();
+      console.log({ dbParish });
+    } catch (err) {
+      console.error({ message: err.message });
+    }
+  };
+
   useEffect(() => {
     if (isEmpty(initialProps.parish)) {
       if (parishes.length > 0) {
-        const findParishById = parishes.find((parish) => {
+        const parishFromContext = parishes.find((parish) => {
           return parish.id.toString() === id;
         });
-        setParish(findParishById);
+        if (parishFromContext) {
+          setParish(parishFromContext);
+          handleCreateParish(parishFromContext);
+        }
       }
     }
   }, [id]);
