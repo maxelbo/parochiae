@@ -46,7 +46,7 @@ export default function Home(props) {
     })();
   }, [latLong]);
 
-  console.log({ localParishes });
+  // console.log({ localParishes });
 
   const handleOnBannerBtnClick = () => {
     handleTrackLocation();

@@ -39,7 +39,7 @@ export default function Parish(initialProps) {
   const router = useRouter();
 
   const id = router.query.id;
-  console.log("id", id, "initialProps", initialProps);
+  // console.log("id", id, "initialProps", initialProps);
 
   const [parish, setParish] = useState(initialProps.parish);
 
@@ -50,6 +50,7 @@ export default function Parish(initialProps) {
   const handleCreateParish = async (parish) => {
     try {
       const { id, name, address, ward, distance, imgUrl, votes } = parish;
+      console.log({ parish });
       const res = await fetch(`/api/createParish`, {
         method: "POST",
         headers: {
@@ -81,6 +82,7 @@ export default function Parish(initialProps) {
         if (parishFromContext) {
           setParish(parishFromContext);
           handleCreateParish(parishFromContext);
+          console.log({ parishFromContext });
         }
       }
     }
