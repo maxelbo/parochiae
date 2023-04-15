@@ -12,6 +12,7 @@ const parishReducer = (state, action) => {
     case ACTION_TYPES.SET_LAT_LONG:
       return { ...state, latLong: action.payload.latLong };
     case ACTION_TYPES.SET_PARISHES:
+      // console.log("action.payload.localParishes", action.payload.localParishes);
       return { ...state, localParishes: action.payload.localParishes };
     default:
       throw new Error(`Invalid action type: ${action.type}`);

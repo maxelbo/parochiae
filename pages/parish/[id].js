@@ -44,20 +44,20 @@ export default function Parish(initialProps) {
   const [parish, setParish] = useState(initialProps.parish);
 
   const {
-    state: { parishes },
+    state: { localParishes },
   } = useContext(ParishContext);
 
-  const handleCreateParish = async (parish) => {
+  const handleCreateParish = async (localParish) => {
     try {
       const { id, name, address, ward, distance, imgUrl, votes } = parish;
-      console.log({ parish });
+      console.log({ localParish });
       const res = await fetch(`/api/createParish`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          id,
+          id: `${id}`,
           name,
           address: address || "",
           ward: ward || "",
@@ -75,14 +75,16 @@ export default function Parish(initialProps) {
 
   useEffect(() => {
     if (isEmpty(initialProps.parish)) {
-      if (parishes.length > 0) {
-        const parishFromContext = parishes.find((parish) => {
-          return parish.id.toString() === id;
+      if (localParishes) {
+        // console.log({ localParishes });
+        const parishFromContext = localParishes.find((localParish) => {
+          // console.log({ localParish });
+          return localParish.id.toString() === id;
         });
         if (parishFromContext) {
           setParish(parishFromContext);
           handleCreateParish(parishFromContext);
-          console.log({ parishFromContext });
+          // console.log({ parishFromContext });
         }
       }
     }
