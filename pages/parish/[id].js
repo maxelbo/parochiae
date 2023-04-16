@@ -49,7 +49,7 @@ export default function Parish(initialProps) {
 
   const handleCreateParish = async (localParish) => {
     try {
-      const { id, name, address, ward, distance, imgUrl, votes } = parish;
+      const { id, name, address, ward, distance, imgUrl, votes } = localParish;
       console.log({ localParish });
       const res = await fetch(`/api/createParish`, {
         method: "POST",
@@ -58,10 +58,10 @@ export default function Parish(initialProps) {
         },
         body: JSON.stringify({
           id: `${id}`,
-          name,
+          name: `${name}`,
           address: address || "",
           ward: ward || "",
-          distance: distance || "",
+          distance: `${distance}` || "",
           imgUrl,
           votes: votes || 0,
         }),
