@@ -4,6 +4,7 @@ export default async function createParish(req, res) {
   console.log({ req });
   if (req.method === "POST") {
     const { id, name, address, ward, distance, imgUrl, votes } = req.body;
+    // console.log({ id, name, address, ward, distance, imgUrl, votes });
     try {
       if (id) {
         const findParishRecords = await table
@@ -11,6 +12,7 @@ export default async function createParish(req, res) {
             filterByFormula: `id="${id}"`,
           })
           .firstPage();
+        // console.log({ findParishRecords });
         if (findParishRecords.length > 0) {
           const records = getMinifiedRecords(findParishRecords);
           res
@@ -32,14 +34,17 @@ export default async function createParish(req, res) {
                   },
                 },
               ],
-              function (err, record) {
+              function (err, records) {
                 if (err) {
                   console.error(err);
                   return;
                 }
-                console.log(record.getId());
+                records.forEach(function (record) {
+                  console.log(record.getId());
+                });
               }
             );
+            console.log({ createRecords });
             // const records = getMinifiedRecords(createRecords);
             res.status(200).json({
               message: "Created a new parish",
