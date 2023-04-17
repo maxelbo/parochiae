@@ -87,8 +87,10 @@ export default function Parish(initialProps) {
           // console.log({ parishFromContext });
         }
       }
+    } else {
+      handleCreateParish(initialProps.parish);
     }
-  }, [id]);
+  }, [initialProps.parish, localParishes, id]);
 
   const { name, address, distance, imgUrl } = parish;
 
