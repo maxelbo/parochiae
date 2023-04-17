@@ -92,13 +92,19 @@ export default function Parish(initialProps) {
     }
   }, [initialProps.parish, localParishes, id]);
 
+  const [voteCount, setVoteCount] = useState(0);
+
+  const handleUpvoteButton = () => {
+    let newVoteCount = voteCount + 1;
+    setVoteCount(newVoteCount);
+    console.log({ newVoteCount });
+  };
+
   const { name, address, distance, imgUrl } = parish;
 
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
-
-  const handleUpvoteButton = () => console.log("upvote");
 
   return (
     <>
@@ -136,7 +142,7 @@ export default function Parish(initialProps) {
             </div>
             <div className={styles.info}>
               <StarIcon className={styles.icon} width={24} height={24} />
-              <p className={styles.text}>1</p>
+              <p className={styles.text}>{voteCount}</p>
             </div>
 
             <button
