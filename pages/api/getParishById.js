@@ -1,19 +1,21 @@
-import { table, getMinifiedRecords } from "../../lib/airtable";
+import { findRecordByFilter } from "../../lib/airtable";
 
 export default async function getParishById(req, res) {
   const { id } = req.query;
   console.log({ id });
   try {
     if (id) {
-      const findParishRecords = await table
-        .select({
-          filterByFormula: `id="${id}"`,
-        })
-        .firstPage();
-      console.log({ findParishRecords });
-      if (findParishRecords.length > 0) {
-        const records = getMinifiedRecords(findParishRecords);
-        res.status(200).json({ message: `Retrieved parish ${id}`, records });
+      const records = await findRecordByFilter(id);
+      if (records.length > 0) {
+        res
+          .status(200)
+          .json({ message: `Retrieved parish with id ${id}`, records });
+      } else {
+        res.status(400).json({
+          statusCode: 400,
+          message: `No parish with id ${id}`,
+        });
+        return;
       }
     } else {
       res.status(400).json({

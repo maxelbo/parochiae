@@ -1,20 +1,17 @@
-import { table, getMinifiedRecords } from "../../lib/airtable";
+import {
+  findRecordByFilter,
+  table,
+  // getMinifiedRecords,
+} from "../../lib/airtable";
 
 export default async function createParish(req, res) {
   console.log({ req });
   if (req.method === "POST") {
     const { id, name, address, ward, distance, imgUrl, votes } = req.body;
-    // console.log({ id, name, address, ward, distance, imgUrl, votes });
     try {
       if (id) {
-        const findParishRecords = await table
-          .select({
-            filterByFormula: `id="${id}"`,
-          })
-          .firstPage();
-        // console.log({ findParishRecords });
-        if (findParishRecords.length > 0) {
-          const records = getMinifiedRecords(findParishRecords);
+        const records = await findRecordByFilter(id);
+        if (records.length > 0) {
           res
             .status(200)
             .json({ message: "This parish already exists", records });
