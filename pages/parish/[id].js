@@ -9,6 +9,7 @@ import cls from "classnames";
 import { MapIcon, MapPinIcon, StarIcon } from "@heroicons/react/24/outline";
 import { ParishContext } from "../../context/parish-provider";
 import { isEmpty } from "../../utils";
+import useSWR from "swr";
 
 export async function getStaticProps(staticProps) {
   const params = staticProps.params;
@@ -49,7 +50,7 @@ export default function Parish(initialProps) {
 
   const handleCreateParish = async (localParish) => {
     try {
-      const { id, name, address, ward, distance, imgUrl, votes } = localParish;
+      const { id, name, address, ward, distance, votes, imgUrl } = localParish;
       console.log({ localParish });
       const res = await fetch(`/api/createParish`, {
         method: "POST",
@@ -62,8 +63,8 @@ export default function Parish(initialProps) {
           address: address || "",
           ward: ward || "",
           distance: `${distance}` || "",
-          imgUrl,
           votes: votes || 0,
+          imgUrl,
         }),
       });
       const dbParish = await res.json();
@@ -76,15 +77,12 @@ export default function Parish(initialProps) {
   useEffect(() => {
     if (isEmpty(initialProps.parish)) {
       if (localParishes) {
-        // console.log({ localParishes });
         const parishFromContext = localParishes.find((localParish) => {
-          // console.log({ localParish });
           return localParish.id.toString() === id;
         });
         if (parishFromContext) {
           setParish(parishFromContext);
           handleCreateParish(parishFromContext);
-          // console.log({ parishFromContext });
         }
       }
     } else {
@@ -92,15 +90,33 @@ export default function Parish(initialProps) {
     }
   }, [initialProps.parish, localParishes, id]);
 
+  const { name, address, distance, votes, imgUrl } = parish;
+
   const [voteCount, setVoteCount] = useState(0);
+
+  const fetcher = (...args) => fetch(...args).then((res) => res.json());
+
+  const { data, error, isLoading } = useSWR(
+    `/api/getParishById?id=${id}`,
+    fetcher
+  );
+
+  useEffect(() => {
+    if (data) {
+      console.log("SWR data", data);
+      setParish(data.records[0]);
+      setVoteCount(data.records[0].votes);
+    }
+  }, [data]);
+
+  if (error) return <div>failed to load</div>;
+  if (isLoading) return <div>Loading...</div>;
 
   const handleUpvoteButton = () => {
     let newVoteCount = voteCount + 1;
     setVoteCount(newVoteCount);
     console.log({ newVoteCount });
   };
-
-  const { name, address, distance, imgUrl } = parish;
 
   if (router.isFallback) {
     return <div>Loading...</div>;
