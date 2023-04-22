@@ -1,4 +1,8 @@
-import { findRecordByFilter, table } from "../../lib/airtable";
+import {
+  findRecordByFilter,
+  table,
+  // getMinifiedRecords,
+} from "../../lib/airtable";
 
 export default async function voteParishById(req, res) {
   if (req.method === "PUT") {
@@ -28,7 +32,6 @@ export default async function voteParishById(req, res) {
             }
           );
           // const records = getMinifiedRecords(updateRecords);
-          console.log({ updateRecords });
           // console.log("minified records from voteParishById", records);
           res.status(200).json({
             message: `Updated votes for id ${id}`,

@@ -112,10 +112,25 @@ export default function Parish(initialProps) {
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>Loading...</div>;
 
-  const handleUpvoteButton = () => {
-    let newVoteCount = voteCount + 1;
-    setVoteCount(newVoteCount);
-    console.log({ newVoteCount });
+  const handleUpvoteButton = async () => {
+    try {
+      const res = await fetch(`/api/voteParishById`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id,
+        }),
+      });
+      const dbParish = await res.json();
+      console.log({ dbParish });
+      let newVoteCount = voteCount + 1;
+      setVoteCount(newVoteCount);
+      console.log({ newVoteCount });
+    } catch (err) {
+      console.error({ message: err.message });
+    }
   };
 
   if (router.isFallback) {
