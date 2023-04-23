@@ -7,9 +7,11 @@ export default async function getParishById(req, res) {
     if (id) {
       const records = await findRecordByFilter(id);
       if (records.length > 0) {
-        res
-          .status(200)
-          .json({ message: `Retrieved parish with id ${id}`, records });
+        res.status(200).json({
+          statusCode: 200,
+          message: `Retrieved parish with id ${id}`,
+          records,
+        });
       } else {
         res.status(400).json({
           statusCode: 400,

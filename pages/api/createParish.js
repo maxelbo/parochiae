@@ -12,9 +12,10 @@ export default async function createParish(req, res) {
       if (id) {
         const records = await findRecordByFilter(id);
         if (records.length > 0) {
-          res
-            .status(200)
-            .json({ message: "This parish already exists", records });
+          res.status(200).json({
+            // message: "This parish already exists",
+            records,
+          });
         } else {
           if (name) {
             const createRecords = table.create(

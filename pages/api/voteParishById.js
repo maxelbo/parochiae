@@ -31,11 +31,11 @@ export default async function voteParishById(req, res) {
               });
             }
           );
-          // const records = getMinifiedRecords(updateRecords);
-          // console.log("minified records from voteParishById", records);
+          // const miniRecords = getMinifiedRecords(updateRecords);
+          // console.log("minified records from voteParishById", miniRecords);
           res.status(200).json({
             message: `Updated votes for id ${id}`,
-            // records,
+            // miniRecords,
           });
         } else {
           res.status(400).json({
