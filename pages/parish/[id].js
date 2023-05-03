@@ -104,8 +104,8 @@ export default function Parish(initialProps) {
   useEffect(() => {
     if (data) {
       console.log("SWR data", data);
-      setParish(data.records[0]);
-      setVoteCount(data.records[0].votes);
+      setParish(data.records);
+      setVoteCount(data.records.votes);
     }
   }, [data]);
 
