@@ -44,7 +44,7 @@ export default function Home(props) {
         }
       }
     })();
-  }, [latLong]);
+  }, [dispatch, latLong]);
 
   // console.log({ localParishes });
 

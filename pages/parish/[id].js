@@ -90,8 +90,6 @@ export default function Parish(initialProps) {
     }
   }, [initialProps.parish, localParishes, id]);
 
-  const { name, address, distance, votes, imgUrl } = parish;
-
   const [voteCount, setVoteCount] = useState(0);
 
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -136,6 +134,8 @@ export default function Parish(initialProps) {
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
+
+  const { name, address, distance, votes, imgUrl } = parish;
 
   return (
     <>
