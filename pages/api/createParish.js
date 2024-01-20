@@ -1,7 +1,7 @@
 import {
   findRecordByFilter,
   table,
-  // getMinifiedRecords,
+  getMinifiedRecords,
 } from "../../lib/airtable";
 
 export default async function createParish(req, res) {
@@ -43,10 +43,10 @@ export default async function createParish(req, res) {
               }
             );
             console.log({ createRecords });
-            // const records = getMinifiedRecords(createRecords);
+            const records = getMinifiedRecords(createRecords);
             res.status(200).json({
               message: "Created a new parish",
-              // records,
+              records,
             });
           } else {
             res.status(400).json({
