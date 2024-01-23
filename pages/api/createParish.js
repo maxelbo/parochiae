@@ -5,7 +5,7 @@ import {
 } from "../../lib/airtable";
 
 export default async function createParish(req, res) {
-  console.log({ req });
+  // console.log({ req });
   if (req.method === "POST") {
     const { id, name, address, ward, distance, imgUrl, votes } = req.body;
     try {
@@ -38,11 +38,11 @@ export default async function createParish(req, res) {
                   return;
                 }
                 records.forEach(function (record) {
-                  console.log(record.getId());
+                  // console.log(record.getId());
                 });
               }
             );
-            console.log({ createRecords });
+            // console.log({ createRecords });
             const records = getMinifiedRecords(createRecords);
             res.status(200).json({
               message: "Created a new parish",

@@ -86,6 +86,11 @@
   gap: 1.5rem;
 }
 
+.cardLayout:nth-child(2) {
+  margin-top: 2rem;
+  border-top: 1px black solid;
+}
+
 .card {
   justify-content: center;
 }
