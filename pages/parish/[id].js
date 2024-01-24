@@ -51,7 +51,7 @@ export default function Parish(initialProps) {
   const handleCreateParish = async (localParish) => {
     try {
       const { id, name, address, ward, distance, votes, imgUrl } = localParish;
-      console.log({ localParish });
+      // console.log({ localParish });
       const res = await fetch(`/api/createParish`, {
         method: "POST",
         headers: {
@@ -68,7 +68,7 @@ export default function Parish(initialProps) {
         }),
       });
       const dbParish = await res.json();
-      console.log({ dbParish });
+      // console.log({ dbParish });
     } catch (err) {
       console.error({ message: err.message });
     }
@@ -90,7 +90,9 @@ export default function Parish(initialProps) {
     }
   }, [initialProps.parish, localParishes, id]);
 
-  const [voteCount, setVoteCount] = useState(0);
+  const { name, address, distance, votes, imgUrl } = parish;
+
+  const [voteCount, setVoteCount] = useState(votes);
 
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -101,14 +103,25 @@ export default function Parish(initialProps) {
 
   useEffect(() => {
     if (data) {
-      console.log("SWR data", data);
-      setParish(data.records);
-      setVoteCount(data.records.votes);
+      // console.log("SWR data", data);
+      setParish(data.records[0]);
+      setVoteCount(data.records[0].votes);
+      // console.log("data votes", data.records[0].votes);
     }
   }, [data]);
 
-  if (error) return <div>failed to load</div>;
-  if (isLoading) return <div>Loading...</div>;
+  if (error)
+    return (
+      <div className={styles.loadingContainer}>
+        <span className={styles.loading}>Failed to Load...</span>
+      </div>
+    );
+  if (isLoading)
+    return (
+      <div className={styles.loadingContainer}>
+        <span className={styles.loading}>Loading...</span>
+      </div>
+    );
 
   const handleUpvoteButton = async () => {
     try {
@@ -122,20 +135,22 @@ export default function Parish(initialProps) {
         }),
       });
       const dbParish = await res.json();
-      console.log({ dbParish });
-      let newVoteCount = voteCount + 1;
+      // console.log({ dbParish });
+      let newVoteCount = (voteCount || 0) + 1;
       setVoteCount(newVoteCount);
-      console.log({ newVoteCount });
+      // console.log({ newVoteCount });
     } catch (err) {
       console.error({ message: err.message });
     }
   };
 
   if (router.isFallback) {
-    return <div>Loading...</div>;
+    return (
+      <div className={styles.loadingContainer}>
+        <span className={styles.loading}>Loading...</span>
+      </div>
+    );
   }
-
-  const { name, address, distance, votes, imgUrl } = parish;
 
   return (
     <>
