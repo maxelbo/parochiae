@@ -13,6 +13,7 @@ import useSWR from "swr";
 
 export async function getStaticProps(staticProps) {
   const params = staticProps.params;
+
   const parishes = await fetchParishes();
   const findParishById = parishes.find((parish) => {
     return parish.id.toString() === params.id;
@@ -27,7 +28,9 @@ export async function getStaticProps(staticProps) {
 export async function getStaticPaths() {
   const parishes = await fetchParishes();
   const paths = parishes.map((parish) => ({
-    params: { id: parish.id.toString() },
+    params: {
+      id: parish.id.toString(),
+    },
   }));
 
   return {
@@ -42,7 +45,7 @@ export default function Parish(initialProps) {
   const id = router.query.id;
   // console.log("id", id, "initialProps", initialProps);
 
-  const [parish, setParish] = useState(initialProps.parish);
+  const [parish, setParish] = useState(initialProps.parish || {});
 
   const {
     state: { localParishes },
@@ -92,6 +95,7 @@ export default function Parish(initialProps) {
 
   const { name, address, distance, votes, imgUrl } = parish;
 
+  // const [voteCount, setVoteCount] = useState(0);
   const [voteCount, setVoteCount] = useState(votes);
 
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -106,6 +110,8 @@ export default function Parish(initialProps) {
       // console.log("SWR data", data);
       setParish(data.records[0]);
       setVoteCount(data.records[0].votes);
+      // setParish(data.records);
+      // setVoteCount(data.records.votes);
       // console.log("data votes", data.records[0].votes);
     }
   }, [data]);
