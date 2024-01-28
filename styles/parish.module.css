@@ -36,6 +36,13 @@
   margin: 1rem;
 }
 
+@media (min-width: 768px) {
+  .container {
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+}
+
 .col1 {
   display: flex;
   flex-direction: column;
@@ -72,13 +79,11 @@
   margin-left: 1rem;
 }
 
-.upvoteButton {
-  width: 65px;
+.parishImg {
+  object-fit: cover;
+  border-radius: 20px;
 }
 
-@media (min-width: 768px) {
-  .container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
+.upvoteButton {
+  width: 65px;
 }
