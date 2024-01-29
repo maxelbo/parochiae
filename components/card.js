@@ -13,7 +13,7 @@ const Card = (props) => (
         alt="parish image"
         src={props.imgUrl}
         width={260}
-        height={160}
+        height={260}
         priority
         className={styles.cardImage}
       />
