@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState, useContext } from "react";
 import { fetchParishes } from "../../lib/parishes";
-import styles from "../../styles/parish.module.css";
+import styles from "../../styles/Parish.module.css";
 import cls from "classnames";
 import { MapIcon, MapPinIcon, StarIcon } from "@heroicons/react/24/outline";
 import { ParishContext } from "../../context/parish-provider";
@@ -177,8 +177,8 @@ export default function Parish(initialProps) {
                 imgUrl ||
                 "https://images.unsplash.com/photo-1465848059293-208e11dfea17?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80"
               }
-              width={600}
-              height={360}
+              width={400}
+              height={400}
               className={styles.parishImg}
               priority
             />

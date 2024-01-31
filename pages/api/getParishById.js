@@ -2,7 +2,7 @@ import { findRecordByFilter } from "../../lib/airtable";
 
 export default async function getParishById(req, res) {
   const { id } = req.query;
-  console.log({ id });
+  // console.log({ id });s
   try {
     if (id) {
       const records = await findRecordByFilter(id);
