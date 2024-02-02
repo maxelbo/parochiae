@@ -98,7 +98,18 @@ export default function Parish(initialProps) {
   // const [voteCount, setVoteCount] = useState(0);
   const [voteCount, setVoteCount] = useState(votes);
 
-  const fetcher = (...args) => fetch(...args).then((res) => res.json());
+  const fetcher = async (...args) => {
+    try {
+      const res = await fetch(...args);
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      return res.json();
+    } catch (error) {
+      console.error("Fetch error:", error);
+      throw error;
+    }
+  };
 
   const { data, error, isLoading } = useSWR(
     `/api/getParishById?id=${id}`,
