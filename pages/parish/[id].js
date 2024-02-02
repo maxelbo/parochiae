@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState, useContext } from "react";
 import { fetchParishes } from "../../lib/parishes";
-import styles from "../../styles/Parish.module.css";
+import styles from "../../styles/parish.module.css";
 import cls from "classnames";
 import { MapIcon, MapPinIcon, StarIcon } from "@heroicons/react/24/outline";
 import { ParishContext } from "../../context/parish-provider";
